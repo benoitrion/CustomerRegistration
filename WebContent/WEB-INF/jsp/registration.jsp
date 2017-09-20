@@ -12,29 +12,21 @@
                 <td><a href="/lang_es">Spanish</a><td>
             <tr>
                 <td>Customer Name</td>
-                <td><form:input path="name" /></td>
+                <td><form:input path="customerName" /></td>
             </tr>
             <tr>
                 <td>Password</td>
-                <td><form:password path="password" id="password"
-                                    placeholder="password" />
-                </td>
-                <td>
-                    <form:errors path="confirmPassword" />
+                <td><form:password path="password" id="password" />
                 </td>
             </tr>
             <tr>
                 <td>Confirm Password</td>
-                <td><form:password path="confirmPassword" id="confirmPassword"
-                                   placeholder="password" />
+                <td><form:password path="confirmPassword" id="confirmPassword"/>
                 </td>
             </tr>
             <tr>
                 <td>Address</td>
                 <td><form:textarea path="address" id="address" placeholder="address" /></td>
-                <td>
-                    <form:errors path="address" />
-                </td>
             </tr>
             <tr>
                 <td>State</td>
@@ -49,9 +41,6 @@
             <tr>
                 <td>Date of Birth</td>
                 <td><form:input path="dateOfBirth" /></td>
-                <td>
-                    <form:errors path="dateOfBirth" />
-                </td>
             </tr>
             <tr>
                 <td>Gender</td>
@@ -59,7 +48,7 @@
                 <td><form:radiobutton path="gender" value="F" /> Female </td>
             </tr>
             <tr>
-                <td><form:checkbox path="terms" id="terms" label="I understand the terms and conditions and agree to it" /></td>
+                <td><form:checkbox path="isAgreed" id="isAgreed" label="I understand the terms and conditions and agree to it" /></td>
             </tr>
             <tr>
                 <td><input type="submit" value="Register"></td>

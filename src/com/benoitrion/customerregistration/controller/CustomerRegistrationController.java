@@ -1,5 +1,6 @@
 package com.benoitrion.customerregistration.controller;
 
+import com.benoitrion.customerregistration.model.Address;
 import com.benoitrion.customerregistration.model.CustomerVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,8 @@ import java.util.List;
 @Controller
 public class CustomerRegistrationController {
 
-    List<String> stateList;
+    private List<String> stateList;
+    private boolean isAgreed = false;
 
     public CustomerRegistrationController() {
 
@@ -31,8 +33,12 @@ public class CustomerRegistrationController {
     public String renderRegistration(Model model) {
         System.out.println("Hello registerRegistration");
 
+        model.addAttribute("stateList", stateList);
+        model.addAttribute("isAgreed", isAgreed);
         CustomerVO customer = new CustomerVO();
+        Address address = new Address();
         model.addAttribute("registration", customer);
+        model.addAttribute("address", address);
 
         return "registration";
     }

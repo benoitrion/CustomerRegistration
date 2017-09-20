@@ -77,4 +77,5 @@ public class CustomerVO {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
 }
