@@ -2,12 +2,41 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    <context:component-scan base-package="com.benoitrion.customerregistration.controller"></context:component-scan>
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <context:component-scan base-package="com.benoitrion.customerregistration"></context:component-scan>
+    <mvc:annotation-driven />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="WEB-INF/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
+    </bean>
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en" />
+    </bean>
+
+    <bean id="localeChangeInterceptor"
+          class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="language" />
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" >
+        <property name="interceptors">
+            <list>
+                <ref bean="localeChangeInterceptor" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="resources.translation" />
+    </bean>
+
+    <bean id="validationProperties"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="resources.validation" />
     </bean>
 
 </beans>

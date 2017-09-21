@@ -2,52 +2,81 @@ package com.benoitrion.customerregistration.controller;
 
 import com.benoitrion.customerregistration.model.Address;
 import com.benoitrion.customerregistration.model.CustomerVO;
+import com.benoitrion.customerregistration.validator.CustomerRegistrationValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CustomerRegistrationController {
 
-    private List<String> stateList;
-    private boolean isAgreed = false;
+    @Autowired
+    private CustomerRegistrationValidator customerRegistrationValidator;
 
-    public CustomerRegistrationController() {
-
-        this.stateList = Arrays.asList("Tamilnadu", "Karnataka","Maharashtra");
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(customerRegistrationValidator);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
-        System.out.println("Hello index");
-        return "redirect:/registration";
+        return "redirect:/registrationForm";
     }
 
     @RequestMapping(value = "/registrationForm", method = RequestMethod.GET)
     public String renderRegistration(Model model) {
-        System.out.println("Hello registerRegistration");
 
-        model.addAttribute("stateList", stateList);
-        model.addAttribute("isAgreed", isAgreed);
-        CustomerVO customer = new CustomerVO();
-        Address address = new Address();
-        model.addAttribute("registration", customer);
-        model.addAttribute("address", address);
+        populateModel(model);
 
         return "registration";
     }
 
-    @RequestMapping(value = "/successForm", method = RequestMethod.POST)
+    @RequestMapping(value = "/submitRegister", method = RequestMethod.POST)
     public String registerCustomer(@ModelAttribute("registration") CustomerVO customerVO,
                                    BindingResult result, Model model) {
 
-        return "redirect:/success";
+        if (result.hasErrors()) {
+            populateModel(model);
+            return "registration";
+        }
+
+        return "success";
+    }
+
+    private void populateModel(Model model) {
+
+        Address address = new Address();
+        address.setAddress("Test address");
+        model.addAttribute("address", address);
+
+        CustomerVO customer = new CustomerVO();
+        customer.setCustomerName("Customer");
+        customer.setAddress(address);
+        customer.setDateOfBirth("12-12-1993");
+        customer.setGender("Male");
+        customer.setAgreed(false);
+        model.addAttribute("registration", customer);
+
+        Map stateList = new HashMap();
+        stateList.put("Tamilnadu", "Tamilnadu");
+        stateList.put("Karnataka", "Karnataka");
+        stateList.put("Maharashtra", "Maharashtra");
+        model.addAttribute("stateList", stateList);
+
+
+        List genderList = Arrays.asList("Male", "Female");
+        model.addAttribute("genderList", genderList);
     }
 
 

@@ -12,11 +12,11 @@
     <title>Successfully registered</title>
 </head>
 <body>
-    <h2>Customer Details</h2>
+    <h2>You have successfully registered with the bank</h2>
     <table>
         <tr>
             <td>Customer name :</td>
-            <td><c:out value="${customer.name}"></c:out></td>
+            <td><c:out value="${customer.customerName}"></c:out></td>
         </tr>
         <tr>
             <td>State :</td>
@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <td>Date of Birth :</td>
-            <td><c:out value="${customer.birthDate}"></c:out></td>
+            <td><c:out value="${customer.dateOfBirth}"></c:out></td>
         </tr>
         <tr>
             <td>Gender :</td>
