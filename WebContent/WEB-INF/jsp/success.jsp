@@ -30,6 +30,10 @@
             <td>Gender :</td>
             <td><c:out value="${customer.gender}"></c:out></td>
         </tr>
+        <tr>
+            <td>You are accessing the application from : </td>
+            <td><c:out value="${customer.clientIpAddress}"></c:out></td>
+        </tr>
     </table>
 </body>
 </html>

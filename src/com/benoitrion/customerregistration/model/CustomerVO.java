@@ -25,10 +25,12 @@ public class CustomerVO {
     private String gender;
     @NotEmpty
     private boolean agreed = false;
+    @NotEmpty
+    private String clientIpAddress;
 
     public CustomerVO() {};
 
-    public CustomerVO(String customerName, String password, String confirmPassword, Address address, String state, String dateOfBirth, String gender, boolean agreed) {
+    public CustomerVO(String customerName, String password, String confirmPassword, Address address, String state, String dateOfBirth, String gender, boolean agreed, String clientIpAddress) {
         this.customerName = customerName;
         this.password = password;
         this.confirmPassword = confirmPassword;
@@ -37,6 +39,7 @@ public class CustomerVO {
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.agreed = agreed;
+        this.clientIpAddress = clientIpAddress;
     }
 
     public String getCustomerName() {
@@ -101,5 +104,13 @@ public class CustomerVO {
 
     public void setAgreed(boolean agreed) {
         this.agreed = agreed;
+    }
+
+    public String getClientIpAddress() {
+        return clientIpAddress;
+    }
+
+    public void setClientIpAddress(String clientIpAddress) {
+        this.clientIpAddress = clientIpAddress;
     }
 }

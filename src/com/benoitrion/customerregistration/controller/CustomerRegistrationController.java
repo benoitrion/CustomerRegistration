@@ -9,28 +9,27 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/customerRegistration")
 public class CustomerRegistrationController {
 
     @Autowired
     private CustomerRegistrationValidator customerRegistrationValidator;
 
-    @InitBinder("customerVO")
+    @InitBinder("customer")
     protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(customerRegistrationValidator);
+        binder.addValidators(customerRegistrationValidator);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/registerForm", method = RequestMethod.GET)
     public String displayRegisterFrom(Model model) {
 
         populateModel(model);
@@ -39,11 +38,15 @@ public class CustomerRegistrationController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerCustomer(@Valid CustomerVO customerVO,
+    public String registerCustomer(@ModelAttribute("customer") CustomerVO customerVO,
                                    BindingResult result, Model model) {
 
+        customerRegistrationValidator.validate(customerVO, result);
+
         if (result.hasErrors()) {
+
             populateModel(model);
+
             return "registration";
         }
 
@@ -62,7 +65,7 @@ public class CustomerRegistrationController {
         customer.setDateOfBirth("12-12-1993");
         customer.setGender("Male");
         customer.setAgreed(false);
-        model.addAttribute("registration", customer);
+        model.addAttribute("customer", customer);
 
         Map stateList = new HashMap();
         stateList.put("Tamilnadu", "Tamilnadu");
@@ -72,6 +75,9 @@ public class CustomerRegistrationController {
 
         List genderList = Arrays.asList("Male", "Female");
         model.addAttribute("genderList", genderList);
+
+        String clientIpAddress = "";
+        model.addAttribute("clientIpAddress", clientIpAddress);
     }
 
 
