@@ -1,14 +1,29 @@
 package com.benoitrion.customerregistration.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Value;
+
+import javax.validation.Valid;
+
 public class CustomerVO {
 
+    @NotEmpty
     private String customerName;
+    @NotEmpty
+    @Valid
     private String password;
+    @NotEmpty
+    @Valid
     private String confirmPassword;
+    @NotEmpty
     private Address address;
+    @NotEmpty
     private String state;
+    @NotEmpty
     private String dateOfBirth;
+    @NotEmpty
     private String gender;
+    @NotEmpty
     private boolean agreed = false;
 
     public CustomerVO() {};

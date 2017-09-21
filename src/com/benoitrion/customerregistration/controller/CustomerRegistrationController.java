@@ -9,41 +9,37 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping(value = "/customerRegistration")
 public class CustomerRegistrationController {
 
     @Autowired
     private CustomerRegistrationValidator customerRegistrationValidator;
 
-    @InitBinder
+    @InitBinder("customerVO")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(customerRegistrationValidator);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Model model) {
-        return "redirect:/registrationForm";
-    }
-
-    @RequestMapping(value = "/registrationForm", method = RequestMethod.GET)
-    public String renderRegistration(Model model) {
+    @RequestMapping(method = RequestMethod.GET)
+    public String displayRegisterFrom(Model model) {
 
         populateModel(model);
 
         return "registration";
     }
 
-    @RequestMapping(value = "/submitRegister", method = RequestMethod.POST)
-    public String registerCustomer(@ModelAttribute("registration") CustomerVO customerVO,
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registerCustomer(@Valid CustomerVO customerVO,
                                    BindingResult result, Model model) {
 
         if (result.hasErrors()) {
@@ -73,7 +69,6 @@ public class CustomerRegistrationController {
         stateList.put("Karnataka", "Karnataka");
         stateList.put("Maharashtra", "Maharashtra");
         model.addAttribute("stateList", stateList);
-
 
         List genderList = Arrays.asList("Male", "Female");
         model.addAttribute("genderList", genderList);

@@ -20,7 +20,7 @@ public class CustomerRegistrationValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "customerName", "NotEmpty.customerVO.customerName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty.customerVO.password");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "NotEmpty.customerVO.confirmPassword");
-        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "NotEmpty.customerVO.address.toString()");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "NotEmpty.customerVO.address");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", "NotEmpty.customerVO.state");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dateOfBirth", "NotEmpty.customerVO.dateOfBirth");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender", "NotEmpty.customerVO.gender");
