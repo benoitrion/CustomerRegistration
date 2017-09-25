@@ -1,24 +1,40 @@
 package com.benoitrion.customerregistration.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Address {
 
-	private String address;
+	@NotEmpty
+	private String street;
+
+	@NotEmpty
+	private String state;
 
 	public Address() {}
-	public Address(String address) {
-		this.address = address;
-	}	
 
-	public String getAddress() {
-		return this.address;
+	public Address(String street, String state) {
+		this.street = street;
+		this.state = state;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	@Override
 	public String toString() {
-		return address;
+		return street;
 	}
 }

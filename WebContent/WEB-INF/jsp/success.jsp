@@ -7,33 +7,31 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-    <title>Successfully registered</title>
+    <td><spring:message code="translation.successTitle" text="Successfully registered" /></td>
 </head>
 <body>
-    <h2>You have successfully registered with the bank</h2>
+    <td><spring:message code="translation.successMessage" text="You have successfully registered with the bank" /></td>
     <table>
         <tr>
-            <td>Customer name :</td>
-            <td><c:out value="${customer.customerName}"></c:out></td>
+            <td><spring:message code="translation.customerName" text="Customer Name" /></td>
+            <td><c:out value="${customerVO.customerName}"></c:out></td>
         </tr>
         <tr>
-            <td>State :</td>
-            <td><c:out value="${customer.state}"></c:out></td>
+            <td><spring:message code="translation.address.street" text="Address" /></td>
+            <td><c:out value="${customerVO.address.state}"></c:out></td>
         </tr>
         <tr>
-            <td>Date of Birth :</td>
-            <td><c:out value="${customer.dateOfBirth}"></c:out></td>
+            <td><spring:message code="translation.dateOfBirth" text="Date of Birth" /></td>
+            <td><c:out value="${customerVO.dateOfBirth}"></c:out></td>
         </tr>
         <tr>
-            <td>Gender :</td>
-            <td><c:out value="${customer.gender}"></c:out></td>
-        </tr>
-        <tr>
-            <td>You are accessing the application from : </td>
-            <td><c:out value="${customer.clientIpAddress}"></c:out></td>
+            <td><spring:message code="translation.gender" text="Gender" /></td>
+            <td><c:out value="${customerVO.gender}"></c:out></td>
         </tr>
     </table>
+    <spring:message code="translation.clientIpAddress" text="You are accessing the application from :" /> <c:out value="${clientIpAddress}"></c:out>
 </body>
 </html>
